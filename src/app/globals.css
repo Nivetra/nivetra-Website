@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Nivetra Technologies design tokens
+   Light-first premium brand. Navy ink, electric-blue→violet accents.
+   Derived from the brand colours.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), ui-sans-serif, sans-serif;
+
+  /* Ink / text */
+  --color-ink: #0a1733;
+  --color-ink-soft: #16294c;
+  --color-muted: #566178;
+  --color-faint: #64748b;
+
+  /* Surfaces */
+  --color-surface: #ffffff;
+  --color-subtle: #f7f9fc;
+  --color-sunken: #eef2f8;
+  --color-line: #e4e9f2;
+  --color-line-strong: #d3dbe8;
+
+  /* Brand accents — tuned to the logo (electric blue → indigo-violet) */
+  --color-brand: #1e7bf5;
+  --color-brand-600: #1668e0;
+  --color-brand-700: #1254bd;
+  --color-violet: #6322f2;
+  --color-violet-600: #551cd8;
+
+  /* Logo gradient stops — the exact blue→violet of the brand mark */
+  --color-grad-from: #0ba7fb;
+  --color-grad-to: #6322f2;
+
+  /* Status (admin / leads) */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+
+  --radius-xl: 0.9rem;
+  --radius-2xl: 1.25rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-brand) 22%, transparent);
+  }
+  a {
+    color: inherit;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  /* Brand gradient — blue → violet, used sparingly on accents and the K mark */
+  .text-gradient {
+    background: linear-gradient(100deg, var(--color-grad-from), var(--color-grad-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-brand-gradient {
+    background-image: linear-gradient(100deg, var(--color-grad-from), var(--color-grad-to));
+  }
+  .border-gradient {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+      linear-gradient(100deg, var(--color-grad-from), var(--color-grad-to)) border-box;
+  }
+  /* Subtle hero wash */
+  .hero-wash {
+    background:
+      radial-gradient(60rem 40rem at 72% -10%, color-mix(in srgb, var(--color-brand) 14%, transparent), transparent 60%),
+      radial-gradient(44rem 34rem at 8% 8%, color-mix(in srgb, var(--color-violet) 12%, transparent), transparent 62%);
+  }
+  .grid-faint {
+    background-image:
+      linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(60% 55% at 50% 40%, #000 30%, transparent 78%);
+  }
+}
+
+/* Respect reduced-motion for all brand animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
